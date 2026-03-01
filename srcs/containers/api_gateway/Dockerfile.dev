@@ -3,10 +3,14 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
-RUN npm install
+RUN npm ci
 
 ENV CHOKIDAR_USEPOLLING=true
 
 EXPOSE 3000
 
-CMD ["npm", "run", "dev"]
+COPY ./tools/dev-start.sh /tools/dev-start.sh
+
+RUN chmod 700 /tools/dev-start.sh
+
+ENTRYPOINT ["/tools/dev-start.sh"]

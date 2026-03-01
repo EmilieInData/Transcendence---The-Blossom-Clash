@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from "react"
-import {Login, Register, Logout} from "./authService"
+import {Login, Login2FA, Logout, Register, Register2FA } from "./authService"
 import { AlertMessage } from "./alertMessage"
 
 const baseUrl = import.meta.env.VITE_BASE_URL
@@ -10,47 +10,92 @@ const AuthContext = createContext()
 export function AuthProvider({children}){
     const [log, setLog] = useState(false)
     const [username, setUsername] = useState(null)
+    const [userId, setUserId] = useState(null)
 
     // --> checking in the API if a cookie token is saved
-    async function checkCookie(username, setLog) {
-        try {
-            const res = await fetch(`${baseUrl}/api/auth/validate`,{
-                method:"POST",
+    async function checkCookie() {
+            try {
+              const lastUserId = localStorage.getItem("lastUserId");
+          
+              const res = await fetch(`${baseUrl}/api/auth/validate`, {
+                method: "POST",
                 credentials: "include",
-            })
-            // console.log('REQUEST DONE')
-            if (!res.ok)
-                throw new Error("Not authenticated")
-
-            // const data = await res.json()
-            setLog(true)
-            // setUsername(data.username)
-            setUsername(username)
-            // console.log("LOG TRUE: ", log, "USername: ", username)
-        }
-        catch (error)
-        {
-            setLog(false)
-            setUsername(null)
-            // console.log("LOG FALSE: ", log)
-            // throw error;
-        }
+                headers: {
+                  "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ lastUserId })
+              });
+          
+              const data = await res.json();
+          
+              setLog(data.valid);
+              setUsername(data.username ?? null);
+              setUserId(data.userId ?? null);
+          
+              //console.log("/validate:", data);
+              if (!data.valid)
+                localStorage.removeItem("lastUserId");
+            } catch {
+              setLog(false);
+              setUsername(null);
+              setUserId(null);
+              localStorage.removeItem("lastUserId");
+            }
     }
 
-    //launch at startup cookie's check function
-     useEffect(() => {
-         checkCookie(username, setLog)
-     }, [])
+    useEffect(() => {
+        if (userId) {
+            localStorage.setItem("lastUserId", userId)
+        }
+    }, [userId])
+
+    useEffect(() => {
+        checkCookie();
+
+        const interval = setInterval(() => {
+            checkCookie();
+        }, 1500);
+
+        return () => clearInterval(interval);
+    }, [])
 
     // --> if login    
     const login = async (username, password) => {
-        await Login(username, password)
+        const { email } = await Login(username, password)
+        const maskedEmail = email.replace(/^(.).+(@.+)$/, '$1***$2')
+        const { value: code } = await AlertMessage.fire({
+            title: `Introduce the code we sent to ${maskedEmail}:`,
+            input: "text",
+            inputPlaceholder: "Your 2FA Code",
+            showCancelButton: false,
+            confirmButtonText: "Verify",
+            allowOutsideClick: false,
+            allowEscapeKey: true,
+            timer: null
+        })
+        if (!code) throw new Error("A code is required")
+    
+        await Login2FA(username, code)
         await checkCookie(username, setLog)
     }
 
     // --> if register    
     const register = async (username, password, email) => {
-        await Register(username, password, email)
+        const { email: returnedEmail } = await Register(username, password, email)
+        const maskedEmail = returnedEmail.replace(/^(.).+(@.+)$/, '$1***$2')
+        const { value: code } = await AlertMessage.fire({
+            title: `Introduce the code we sent to ${maskedEmail}:`,
+            input: "text",
+            inputPlaceholder: "Your 2FA Code",
+            showCancelButton: false,
+            confirmButtonText: "Verify",
+            allowOutsideClick: false,
+            allowEscapeKey: true,
+            timer: null
+        })
+        if (!code) throw new Error("A code is required")
+    
+        await Register2FA(username, code)
         await checkCookie(username,setLog)
     }
 
@@ -70,6 +115,7 @@ export function AuthProvider({children}){
             value={{
                 log,
                 username,
+                userId,
                 login,
                 register,
                 logout

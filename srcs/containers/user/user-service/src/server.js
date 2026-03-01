@@ -6,9 +6,14 @@ import cookie from '@fastify/cookie';
 import routes from './routes.js'
 import seed from './seedUsers.js'
 import db from './db.js'
+import fs from 'fs';
 
 const fastify = Fastify({
   logger: true,
+  https: {
+    key: fs.readFileSync('/certs/user-service.key'),
+    cert: fs.readFileSync('/certs/user-service.crt')
+  },
   ajv: {
     customOptions: {
       strict: true,
@@ -60,7 +65,7 @@ fastify.get('/health', async () => {
   return { status: 'ok', service: 'user-service' };
 });
 
-//await seed()
+await seed()
 
 // Check to avoid leaving sockets open with nodemon
 const start = async () => {

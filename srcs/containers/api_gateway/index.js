@@ -1,13 +1,24 @@
 import Fastify from "fastify";
 import proxy from "@fastify/http-proxy";
-import cors from "@fastify/cors"
+import cors from "@fastify/cors";
+import rateLimit from "@fastify/rate-limit";
+import fs from 'fs';
 
 const app = Fastify({ 
   logger: true, 
-  trustProxy: true
+  trustProxy: true,
+  https: {
+    key: fs.readFileSync('/certs/api_gateway.key'),
+    cert: fs.readFileSync('/certs/api_gateway.crt')
+  }
 });
 // la opcion 'logger: true' muestra logs de incoming requests, redirecciones y codigos de respuesta 
 // la opcion 'trustproxy: true' confia que el proxy(nginx o vite) viene con https
+
+app.register(rateLimit, {
+  max: 100,               // máximo 100 requests
+  timeWindow: "1 minute", // por minuto
+});
 
 // 🔐 HTTPS enforcement
 // app.addHook('onRequest', async (req, reply) => {
@@ -30,13 +41,13 @@ app.register(cors, {
 });
 
 app.register(proxy, {
-  upstream: "http://user-service:3000",
+  upstream: "https://user-service:3000",
   prefix: "/api/users",
   rewritePrefix: "/"
 });
 
 app.register(proxy, {
-  upstream: "http://auth-service:3000",
+  upstream: "https://auth-service:3000",
   prefix: "/api/auth/",
   rewritePrefix: "/",
 });

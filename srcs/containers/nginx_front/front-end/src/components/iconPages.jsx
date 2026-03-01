@@ -1,13 +1,29 @@
 import { CorbenBold , CorbenRegular, Sixtyfour } from "./typography"
+import {IconText, IconsOverlayFrame, ProfilePicture, ChopstickButton} from "./iconUtils"
 
-export function IconsList({setScreen}){
+
+export function Friends({setScreen}){
     return(
-        <div className= "flex flex-col h-full justify-evenly items-center sm:border-r-4 border-r-2 border-black">
-            <Icon image={homeIcon} onClick={() =>setScreen("homePlay")} text="Home" />
-            <Icon image={profileIcon} onClick={() =>setScreen("homePlay")} text="Profile" />
-            <Icon image={friendsIcon} text="Friends" />
-            <Icon image={statsIcon} text="Stats" />
-            <Icon image={rulesIcon} text="Rules" />
-        </div>
+        <>
+            <IconsOverlayFrame />
+        </>
+    )
+}
+
+
+export function Rules(){
+    return(
+        <>
+            <IconsOverlayFrame />
+        </>
+    )
+}
+
+
+export function Project(){
+    return(
+        <>
+            <IconsOverlayFrame />
+        </>
     )
 }

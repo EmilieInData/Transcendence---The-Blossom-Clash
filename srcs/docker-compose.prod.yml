@@ -13,6 +13,8 @@ services:
     networks:
       - front
     restart: always
+    volumes:
+      - certs_volume:/certs:ro
 
   api_gateway:
     build:

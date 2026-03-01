@@ -22,7 +22,9 @@ up:
 down:
 	$(DC) down || true
 
-restart: down up
+restart: 
+	$(DC) down 
+	$(DC) up -d
 
 clean:
 	$(DC) down -v || true
@@ -32,6 +34,7 @@ clean:
 deep-clean: clean
 	$(DC) down -v --rmi all || true
 	docker system prune -a -f || true
+	docker builder prune -a -f || true
 	docker volume prune -f || true
 
 remake:
