@@ -33,13 +33,6 @@ app.addHook('onRequest', async (req) => {
   console.log(`[GATEWAY] ${req.method} ${req.url}`);
 });
 
-//Cross-origin ressource sharing para que el front pueda hacer fetch
-app.register(cors, {
-  origin: "https://localhost:8080",
-  credentials: true,
-  methods: ["GET", "POST", "PATCH", "DELETE"]
-});
-
 app.register(proxy, {
   upstream: "https://user-service:3000",
   prefix: "/api/users",
