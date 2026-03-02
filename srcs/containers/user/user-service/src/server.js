@@ -23,7 +23,22 @@ const fastify = Fastify({
   }
 })
 
+function readSecret(path) {
+  return fs.readFileSync(path, 'utf8').trim()
+}
+
 fastify.register(cookie);
+
+fastify.addHook('onRequest', async (request, reply) => {
+  const publicPaths = ['/health', '/docs', '/api/auth/docs', '/api/users/docs'];
+  if (publicPaths.some(path => request.url.startsWith(path))) return;
+
+  const apiKey = request.headers['x-api-key'];
+  if (!apiKey)
+    reply.code(404).send({ error: '404 Not Found' });
+  else if (apiKey !== readSecret(process.env.API_KEY))
+    reply.code(401).send({ error: 'Invalid API key' });
+});
 
 //si hay un error no encontrado fastify devuelve 500 por defecto
 fastify.setErrorHandler((err, req, reply) => {

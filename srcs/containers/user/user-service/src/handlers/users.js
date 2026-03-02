@@ -268,7 +268,7 @@ async function deleteAvatar(req, reply) {
 
 async function disconnect(req, reply) {
     try {
-      const apiKey = req.headers['api-key'];
+      const apiKey = req.headers['x-api-key'];
   
       if (apiKey !== readSecret(process.env.API_KEY)) {
         return reply.code(401).send({ error: "Invalid API key" });
@@ -287,7 +287,7 @@ async function disconnect(req, reply) {
 
 async function connect(req, reply) {
     try {
-      const apiKey = req.headers['api-key'];
+      const apiKey = req.headers['x-api-key'];
   
       if (apiKey !== readSecret(process.env.API_KEY)) {
         return reply.code(401).send({ error: "Invalid API key" });

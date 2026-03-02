@@ -62,7 +62,7 @@ async function login(req, reply) {
     const coincidence = await fetch('https://user-service:3000/user/login',
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': readSecret(process.env.API_KEY) },
       body: JSON.stringify({ username, password })
     });
 
@@ -142,7 +142,7 @@ async function logout(req, reply) {
     const logoutRes = await fetch('https://user-service:3000/user/logout',
     {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': readSecret(process.env.API_KEY) },
       body: JSON.stringify({ username })
     });
     const resValues = await logoutRes.json();
@@ -175,7 +175,7 @@ async function register2FA(req, reply) {
 
     const coincidence = await fetch('https://user-service:3000/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'x-api-key': readSecret(process.env.API_KEY) },
       body: JSON.stringify({ username, password, email })
     });
     const resValues = await coincidence.json();
@@ -251,7 +251,7 @@ async function validate(req, reply) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'api-key': readSecret(process.env.API_KEY)
+            'x-api-key': readSecret(process.env.API_KEY)
           },
           body: JSON.stringify({ userId: lastUserId })
         });
@@ -264,7 +264,7 @@ async function validate(req, reply) {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'api-key': readSecret(process.env.API_KEY)
+        'x-api-key': readSecret(process.env.API_KEY)
       },
       body: JSON.stringify({ userId: decoded.userId })
     });
