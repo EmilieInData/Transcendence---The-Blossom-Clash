@@ -1,11 +1,17 @@
-FROM node:20.18.1-alpine
+FROM node:20.19.6-alpine
 
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+#RUN npm cache clean --force
+RUN npm ci
 
 COPY . .
+
+COPY ./tools/start.sh /tools/start.sh
+
+RUN chmod 700 /tools/start.sh
+
 EXPOSE 3000
 
-CMD ["node", "index.js"]
+ENTRYPOINT ["/tools/start.sh"]
 
