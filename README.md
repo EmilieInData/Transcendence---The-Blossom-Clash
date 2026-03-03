@@ -78,10 +78,10 @@ She worked closely with the technical lead and the backend team to make the best
 
 #### :palm_tree: Manu |  *Technical Lead*
 
-As Tech Lead, he was in charge of deciding which languages and technologies we used, as well as giving insight on how the architecture should be. He also made sure the code quality was high and consistent throughout the whole project.\
+As Technical Lead, he was in charge of deciding which languages and technologies we used, as well as giving insight on how the architecture should be. He also made sure the code quality was high and consistent throughout the whole project.\
 He established a pull authorization method in github and reviewed all the pull and merge requests before they were applied to the main branch.
 
-As a developer, he implemented the authentication microservice and the user management system using secure, session-based user authentication. Through the user request flow, he made sure the endpoints were available so the front end could remain consistent. He also implemented an API key to ensure that only valid requests could reach the data access service.
+As a developer, he implemented the authentication microservice and the user management system using session-based user authentication. Through the user request flow, he made sure the endpoints were available so the front end could remain consistent. He also implemented an API key to ensure that only requests from the API microservice could reach the data access service.
 
 #### :potted_plant: Cléo |  *Developer (back)*
 
@@ -144,6 +144,60 @@ We used MariaDB as our relational database.
 > Any other significant technologies or libraries.
 
 > Justification for major technical choices.
+
+
+### Frontend
+- **React 18** with functional components and hooks
+- **Vite** as build tool, chosen for exceptional speed and native ES module support
+- **Tailwind CSS** for utility-first styling, enabling rapid, consistent UI development
+- **SweetAlert2** for polished user notifications and confirmations
+
+### Backend
+- **Fastify** as core framework, selected for high performance, low overhead, and built-in schema validation
+- **Swagger UI** for automatic API documentation and interactive endpoint testing
+- **JWT** for stateless authentication across microservices
+- **bcryptjs** for secure password hashing
+- **Nodemailer** for 2FA email delivery
+- **@fastify/multipart** for file uploads with validation
+- **@fastify/cookie** for secure session management
+- **@fastify/cors** for cross-origin configuration
+- **@fastify/rate-limit** for API protection
+- **@fastify/http-proxy** for microservice routing
+
+### Database
+- **MariaDB** chosen for:
+  - Full MySQL compatibility with enhanced performance
+  - ACID compliance ensuring data integrity
+  - Mature Node.js ecosystem integration
+  - Strong community support and production reliability
+
+### Additional Technologies
+- **Docker** for containerization and service orchestration
+- **Nginx** as reverse proxy and static asset server
+- **OpenSSL** for SSL/TLS certificate management
+- **Swagger/OpenAPI 3.0** for comprehensive API documentation
+- **Faker.js** for realistic test data generation
+- **Nodemon** for hot-reloading during development
+- **ESLint** for code quality
+
+### Justification for Key Technical Choices
+
+**Microservices Architecture**: Three distinct services (API Gateway, Auth, User) provide separation of concerns, independent scalability, and fault isolation.
+
+**Fastify over Express**: Superior performance benchmarks, built-in validation, and modular plugin architecture.
+
+**React with Vite**: Near-instant hot module replacement during development and optimized production builds.
+
+**Two-Factor Authentication**: Critical security enhancement requiring both password and email verification.
+
+**Docker Containerization**: Ensures environment consistency, simplifies deployment, and enables horizontal scaling.
+
+**JWT Authentication**: Stateless tokens eliminate server-side storage, enabling horizontal scaling and microservice compatibility.
+
+**MariaDB over NoSQL**: Structured relational data, ACID compliance, and complex query capabilities made SQL the right choice.
+
+**Tailwind CSS**: Utility-first approach accelerates development, enforces design consistency, and produces minimal production CSS.
+
 
 <br>
 
