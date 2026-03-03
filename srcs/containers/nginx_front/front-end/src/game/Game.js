@@ -77,6 +77,7 @@ export class Game {
 		this.resetButtonBounds = null;
 		this.onBackToMenu = null;
 		this.onGameEnd = null;
+		this.isTouchDevice = false;
 
 		this.roundTimeOverride = null;
 		this.totalRoundsOverride = null;
@@ -359,7 +360,7 @@ export class Game {
 		// Switch state - React will handle UI visibility based on state
 		this.state = 'playing';
 		console.log('🎮 Game state changed to:', this.state);
-
+		console.log('Is touch device:', this.isTouchDevice);
 		// Begin the first round
 		this.roundSystem.startRound();
 		// Show round indicator
@@ -1022,7 +1023,7 @@ export class Game {
 		// Title: "Round 1" / "Round 2"
 		ctx.fillStyle = ROUND_INDICATOR_TEXT_COLOR;
 		ctx.font = ROUND_INDICATOR_TITLE_FONT;
-		ctx.fillText(`ROUND ${currentRound}`, centerX, centerY + Yoffset);
+		ctx.fillText(`ROUND ${currentRound} ${this.isTouchDevice ? '(Touch)' : '(Mouse)'}`, centerX, centerY + Yoffset);
 		// Subtitle: "1 / 2"
 		ctx.font = ROUND_INDICATOR_SUBTITLE_FONT;
 		ctx.fillText(`${currentRound} / ${this.totalRoundsOverride}`, centerX, centerY + Yoffset + 42);

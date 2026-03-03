@@ -84,6 +84,8 @@ export class Player {
 		this.abilitiesEnabled = true;
 	}
 
+	
+
 	/**
 	 * Advances player movement, abilities and state for one frame.
 	 *
