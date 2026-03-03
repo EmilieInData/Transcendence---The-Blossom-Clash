@@ -13,4 +13,4 @@ RUN chmod 700 /tools/start.sh
 
 EXPOSE 3000
 
-ENTRYPOINT ["/tools/start.sh"]
+CMD ["/tools/start.sh"]
