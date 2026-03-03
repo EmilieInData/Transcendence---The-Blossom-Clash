@@ -167,7 +167,6 @@ We used MariaDB as our relational database.
 ### Database
 - **MariaDB** chosen for:
   - Full MySQL compatibility with enhanced performance
-  - ACID compliance ensuring data integrity
   - Mature Node.js ecosystem integration
   - Strong community support and production reliability
 
@@ -196,7 +195,7 @@ We used MariaDB as our relational database.
 
 \- **JWT Authentication**: Stateless tokens eliminate server-side storage, enabling horizontal scaling and microservice compatibility.
 
-\- **MariaDB over NoSQL**: Structured relational data, ACID compliance, and complex query capabilities made SQL the right choice.
+\- **MariaDB over NoSQL**: Structured relational data made SQL the right choice.
 
 \- **Tailwind CSS**: Utility-first approach accelerates development, enforces design consistency, and produces minimal production CSS.
 
