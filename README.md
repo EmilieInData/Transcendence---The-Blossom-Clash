@@ -184,9 +184,11 @@ We used MariaDB as our relational database.
 
 **Microservices Architecture**: Three distinct services (API Gateway, Auth, User) provide separation of concerns, independent scalability, and fault isolation.
 
-**Fastify over Express**: Superior performance benchmarks, built-in validation, and modular plugin architecture.
+**Fastify over Express**: Superior performance benchmarks, built-in validation, and modular plugin architecture makes it ideal for Microservices Architecture. Also, Schemas allowed us to implement the Swagger documentation system.
 
-**React with Vite**: Near-instant hot module replacement during development and optimized production builds.
+**React with Vite**: Near-instant hot module replacement during frontend development and optimized production builds.
+
+**Nodemon**: Near-instant hot reloading during backend development and optimized production builds.
 
 **Two-Factor Authentication**: Critical security enhancement requiring both password and email verification.
 
