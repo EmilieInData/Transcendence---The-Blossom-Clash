@@ -3,7 +3,7 @@ import {IconText, IconsOverlayFrame, ProfilePicture, ChopstickButton, OverlayPag
 import {useRef, useState, useEffect} from "react"
 import {Circle, PlaceholderInput, CirclePlaceholder} from "./circleUtils"
 import {useAuth} from "../services/authProvider"
-import {getUserInfo, uploadAvatarFile, uploadAvatar, patchChangeUsername, patchChangePassword, patchChangeInfo, loginUser} from "../services/authService"
+import {getUserInfo, uploadAvatarFile, uploadAvatar, patchChangeUsername, patchChangePassword, patchChangeInfo, loginUser, checkActiveCookie} from "../services/authService"
 import { AlertMessage, OptionAlert } from "../services/alertMessage"
 
 
@@ -313,7 +313,7 @@ export function UserData({data, setScreenProfile, setScreen}){
             })
 
             if (result.isConfirmed) {
-                await deleteUser(setScreen)
+                await deleteUser()
                 setScreen("playNC")
 
             } else if (result.isDismissed) {
@@ -420,13 +420,18 @@ export function ChangeInfo({setData, setScreenProfile}){
 
 export function Profile({setScreen}){
     const [screenProfile, setScreenProfile] = useState("profile");
-    const {userId} = useAuth()
+    const {userId, disconnectCookie} = useAuth()
     const [data, setData] = useState(null)
 
     useEffect(() => {
-        if (!userId) return
-      
         (async () => {
+            const res = await disconnectCookie()
+            if (res)
+                return
+
+            if (!userId)
+                return
+            
             const response = await getUserInfo(userId)
             setData(response)
         }) ()

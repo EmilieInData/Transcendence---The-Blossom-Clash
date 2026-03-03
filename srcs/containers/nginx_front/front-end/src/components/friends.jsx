@@ -198,16 +198,24 @@ function AddFriend({setScreenProfile}) {
       )
 }
 
-export function Friends({setScreen}) {
-  const { userId } = useAuth()
 
+export function Friends({setScreen}) {
+  const { userId, disconnectCookie } = useAuth()
   const [friends, setFriends] = useState([])
   const [pending, setPending] = useState([])
   const [requests, setRequests] = useState([])
 
   useEffect(() => {
-    if (!userId) return;
+    if (!userId)
+      return
+    (async () => {
+        const res = await disconnectCookie()
+        if (res)
+            return
+    }) ()
+  }, [userId])
 
+  useEffect(() => {
     async function fetchFriendships(fetchFct, setState) {
       try {
         const data = await fetchFct(userId)

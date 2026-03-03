@@ -319,6 +319,19 @@ async function deletecookie(req, reply) {
     return reply.code(200).send();
 }
 
+async function activesession(req, reply) {
+  try {
+    const token = req.cookies.access_token;
+
+    if (!token)
+      return reply.code(200).send({ valid: false });
+    else
+      return reply.code(200).send({ valid: true });
+  } catch (err) {
+    return reply.code(400).send({ valid: false, message: "Bad Request" });
+  }
+}
+
 export default {
     readSecret,
     status,
@@ -331,5 +344,6 @@ export default {
     register,
     validate,
     updateUsername,
-    deletecookie
+    deletecookie,
+    activesession
 }

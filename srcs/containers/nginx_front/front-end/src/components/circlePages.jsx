@@ -59,9 +59,17 @@ function ToggleOption({ active, onClick, label }) {
 
 export function GameConfig({ game, hasStarted, setHasStarted }) {
   const [advancedConfigOpen, setAdvancedConfigOpen] = useState(false)
-  const { username } = useAuth()
+  const { username, userId, disconnectCookie } = useAuth()
   const [player1Name, setPlayer1Name] = useState("")
   
+  useEffect(() => {
+    (async () => {
+        const res = await disconnectCookie()
+        if (res)
+            return
+    }) ()
+  },)
+
   useEffect(() => {
     if (username) {
       setPlayer1Name(username)

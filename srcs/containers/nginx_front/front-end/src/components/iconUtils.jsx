@@ -53,12 +53,12 @@ export function IconsList({setScreen}){
             />
             <Icon
                 image={profileIcon}
-                onClick={() =>setScreen(log ? "profile" : "playNC")}
+                onClick={() =>setScreen(log ? "profile" : "signIn")}
                 text="Profile"
             />
             <Icon
                 image={friendsIcon}
-                onClick={() =>setScreen(log ? "friends" : "playNC")}
+                onClick={() =>setScreen(log ? "friends" : "signIn")}
                 text="Friends"
             />
             <Icon
