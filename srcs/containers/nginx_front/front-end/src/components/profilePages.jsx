@@ -371,46 +371,44 @@ export function ChangeInfo({setData, setScreenProfile}){
     return(
         <div className="flex flex-col relative w-full h-full justify-center items-center">
             <Circle className="bg-shell border-2 border-greyish">
-                {/* <div className="flex flex-col pt-4 md:pt-0 lg:pt-6 xl:gap-2 justify-center items-center"> */}
-                    <form
-                        onSubmit={async (e) => {
-                        e.preventDefault()
-                        try {
-                            await handleChangeInfo()
-                            AlertMessage.fire({
-                                icon: "success",
-                                text: "Info changed!",
-                            })
-                        setData(prev => ({
-                            ...prev,
-                            bio: info})
-                        )
-                        setScreenProfile("profile")
-                        }
-                        catch(err) {
-                            AlertMessage.fire({
-                            icon: "error",
-                            text: err.message,
-                            })
-                        }
-                        }}
-                        className="
-                            relative flex flex-col
-                            justify-center
-                            items-center
-                            h-full w-full"
-                    >
-                        <CirclePlaceholder
-                            placeholder="Please express yourself here.."
-                            value={info}
-                            onChange={(e) => setInfo(e.target.value.slice(0,300))}
-                            className="!static"
-                        />
-                        <button type="submit" className="absolute bottom-[12%] z-20">
-                            <IconText text="Confirm change" className="opacity-100 cursor-pointer" />
-                        </button>
-                    </form>
-                {/* </div> */}
+                <form
+                    onSubmit={async (e) => {
+                    e.preventDefault()
+                    try {
+                        await handleChangeInfo()
+                        AlertMessage.fire({
+                            icon: "success",
+                            text: "Info changed!",
+                        })
+                    setData(prev => ({
+                        ...prev,
+                        bio: info})
+                    )
+                    setScreenProfile("profile")
+                    }
+                    catch(err) {
+                        AlertMessage.fire({
+                        icon: "error",
+                        text: err.message,
+                        })
+                    }
+                    }}
+                    className="
+                        relative flex flex-col
+                        justify-center
+                        items-center
+                        h-full w-full"
+                >
+                    <CirclePlaceholder
+                        placeholder="Please express yourself here.."
+                        value={info}
+                        onChange={(e) => setInfo(e.target.value.slice(0,300))}
+                        className="!static"
+                    />
+                    <button type="submit" className="absolute bottom-[12%] z-20">
+                        <IconText text="Confirm change" className="opacity-100 cursor-pointer" />
+                    </button>
+                </form>
             </Circle>
         </div>
     )
@@ -436,7 +434,7 @@ export function Profile({setScreen}){
         }) ()
     }, [userId])
 
-    // if (!data) return <div>Loading...</div>
+    if (!data) return <div>Loading...</div>
     
     return(
         <div className="flex flex-col relative w-full h-full justify-center items-center">       
@@ -485,9 +483,6 @@ export function Profile({setScreen}){
     )
 }
 
-{/*test max char de username/email/infos*/}
-
-//faire en sorte que la bio ne soit jamais vide
 
 //useRef -->
 //hook react who keep a reference to a DOM element

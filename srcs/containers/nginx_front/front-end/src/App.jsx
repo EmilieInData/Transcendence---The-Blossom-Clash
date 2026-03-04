@@ -6,7 +6,7 @@ import {useState, useEffect} from "react"
 import {useAuth} from "./services/authProvider"
 
 export default function App() {
-  const background = "/images_png/ground_01.png"
+  const background = "/images_png/shell_ground_06.jpg"
   const flowerGround = "/images_png/flower_ground.png"
   const {log} = useAuth()
   const [screen, setScreen] = useState("playNC")

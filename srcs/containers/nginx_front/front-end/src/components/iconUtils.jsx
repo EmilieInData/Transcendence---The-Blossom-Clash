@@ -13,7 +13,7 @@ export function IconText({text, className=""}){
             flex
             bg-red-900 rounded-lg
             my-1 px-2 py-0.5
-            cursor-default
+            cursor-pointer
             opacity-0
             group-hover:opacity-100
             transition-opacity duration-500

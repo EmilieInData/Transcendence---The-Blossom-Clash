@@ -66,44 +66,6 @@ export function PlaceholderInput({placeholder, className = "", value, onChange, 
 }
 
 
-// export function CirclePlaceholder({placeholder, className = "", value, onChange, type}){
-//   return(
-//     <textarea
-//       type={type}
-//       placeholder={placeholder}
-//       value={value}
-//       onChange={onChange}
-//       className={`
-//         absolute
-//         cursor-text
-//         font-Corben
-//         text-red-900
-//         text-center
-//         text-[10px] md:text-base
-//         placeholder:font-Corben
-//         placeholder:text-shell
-//         placeholder:text-center
-//         placeholder:text-[10px] md:placeholder:text-base
-//         bg-greyish
-//         rounded-full
-//         w-[330px] h-[330px]
-//         resize-none
-//         p-6
-//         maxLength={300} 
-//         overflow-y-auto
-//         box-border
-//         ${className}`}
-//         style={{
-//           paddingTop: "30%",
-//           lineHeight: "1.2em",
-//           paddingBottom: "60%",
-
-//       }}
-//     />
-//   )
-// }
-
-
 export function CirclePlaceholder({ placeholder, className = "", value, onChange, type }) {
  
   return (
@@ -135,4 +97,3 @@ export function CirclePlaceholder({ placeholder, className = "", value, onChange
     </div>
   );
 }
-
