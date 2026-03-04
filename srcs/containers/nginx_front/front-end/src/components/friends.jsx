@@ -35,6 +35,7 @@ function RequestCard({request, buttonText, onDelete, children, onAccept}) {
               />
               <P className="">{friendship.username}</P>
             </div>
+            <div className="flex gap-10 w-56 justify-end">
              <Button
               text="Accept invitation"
               onClick={() => onAccept(friendship.id)}
@@ -45,6 +46,7 @@ function RequestCard({request, buttonText, onDelete, children, onAccept}) {
               onClick={() => onDelete(friendship.id)}
               src="/validation_icons/X_bold_cut.svg"
             />
+            </div>
         </div>
         )
       })}
@@ -90,17 +92,16 @@ function FriendsCard({ friends, buttonText, onDelete, children, setScreenProfile
 
   return (
     <div className="p-6 text-center border rounded-xl border-greyish relative ">
-        <div className="flex items-center relative w-full justify-center ">
-            <Sixtyfour>{children}</Sixtyfour>
-        </div>
-          <div className="relativ overflow-visible z-50">
+        <div className="relative w-full mb-4">
+            <Sixtyfour className="absolute left-1/2 transform -translate-x-1/2">{children}</Sixtyfour>
+          <div className="absolute right-0">
               <Button
                   text="Add friend"
                   onClick={() =>setScreenProfile("addFriend")}
                   src="/validation_icons/+_bold_plain_yellow.svg"
               />
           </div>
-        
+        </div>
       {friends && friends.map((friendship) => {
         return (
           <div key={friendship.id} className="flex items-center justify-between py-2">
