@@ -205,6 +205,9 @@ We used MariaDB as our relational database.
 
 #### Schema
 ![Database](assets/database.png)
+We have decided to create two tables: one for the user's personal information and another for all friendships.
+The friendship table is related to the user table through two foreign keys referencing the user ID.
+When a user is deleted from the user table, all friendships associated with that user ID are automatically deleted as well (via cascading delete).
 
 > Visual representation or description of the database structure
 
