@@ -6,18 +6,18 @@ services:
     container_name: api_gateway
     build: 
       context: ./containers/api_gateway
-    networks:
-      - front
-      - back
     depends_on:
      - auth-service
      - user-service
      - cert-generator
-    restart: always
     volumes:
       - certs_volume:/certs:ro
     environment:
       NODE_EXTRA_CA_CERTS: /certs/ca.crt
+    networks:
+      - front
+      - back
+    restart: always
 
 # USER
   user-service:
@@ -26,7 +26,7 @@ services:
       context: ./containers/user/user-service
       dockerfile: Dockerfile.prod
     volumes:
-      - ./containers/nginx_front/front-end/public/uploads/avatars:/uploads/avatars
+      - avatars_volume:/uploads/avatars
       - certs_volume:/certs:ro
     secrets:
       - db_username
@@ -35,7 +35,7 @@ services:
       - jwt_secret
       - api_key
     env_file:
-      - .env
+      - ./.env
     environment: 
       DB_USER_FILE: /run/secrets/db_username
       DB_PASSWORD_FILE: /run/secrets/db_user_password
@@ -119,8 +119,8 @@ services:
 volumes:
   db_volume:
     driver: local
-  # lo vemos al hacer "docker volume ls" pero no vemos lo que se va guardando en run time en el host
   certs_volume:
+  avatars_volume:
 
 
 secrets:

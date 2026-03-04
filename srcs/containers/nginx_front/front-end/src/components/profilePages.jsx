@@ -299,8 +299,8 @@ export function UserData({data, setScreenProfile, setScreen}){
     if (!userId) return
       //TO DO checker si un UserId sinon profil deconnecte, faire sur chaque page ce check!!!
 
-    if(!data)
-        return <div>Loading...</div>
+    /*if(!data)
+        return <div>Loading...</div>*/
 
     const handleDeleteAccount = async () => {
         try {
@@ -432,7 +432,9 @@ export function Profile({setScreen}){
         }) ()
     }, [userId])
 
-    if (!data) return <div>Loading...</div>
+
+    if (!data) 
+        return <div>Loading</div>
     
     return(
         <div className="flex flex-col relative w-full h-full justify-center items-center">       

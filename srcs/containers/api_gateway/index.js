@@ -16,33 +16,39 @@ const app = Fastify({
 // la opcion 'trustproxy: true' confia que el proxy(nginx o vite) viene con https
 
 app.register(rateLimit, {
-  max: 300,               // máximo 100 requests
-  timeWindow: "1 minute", // por minuto
+  max: 300,               
+  timeWindow: "1 minute",
 });
 
-// 🔐 HTTPS enforcement
-// app.addHook('onRequest', async (req, reply) => {
-//   // If original request came via HTTP
-//   if (req.headers['x-forwarded-proto'] !== 'https') {
-//     return reply.redirect(`https://${req.hostname}${req.url}`);
-//   }
-// });
-
-// printf para ver la request en los logs de la api-gateway
 app.addHook('onRequest', async (req) => {
   console.log(`[GATEWAY] ${req.method} ${req.url}`);
 });
+// printf para ver la request en los logs de la api-gateway
+
+const internalHttpsOptions = {
+  rejectUnauthorized: true,
+  ca: fs.readFileSync('/certs/ca.crt')
+};
 
 app.register(proxy, {
   upstream: "https://user-service:3000",
   prefix: "/api/users",
-  rewritePrefix: "/"
+  rewritePrefix: "/",
+  https: internalHttpsOptions
+});
+
+app.register(proxy, {
+  upstream: "https://user-service:3000",
+  prefix: "/uploads",
+  rewritePrefix: "/uploads",
+  https: internalHttpsOptions
 });
 
 app.register(proxy, {
   upstream: "https://auth-service:3000",
   prefix: "/api/auth/",
   rewritePrefix: "/",
+  https: internalHttpsOptions
 });
 
 app.get("/api/health", async () => {

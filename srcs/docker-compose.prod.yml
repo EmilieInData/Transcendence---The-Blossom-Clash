@@ -17,6 +17,3 @@ services:
   api_gateway:
     build:
       dockerfile: Dockerfile.prod
-    networks:
-      - front
-      - back

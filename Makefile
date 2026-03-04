@@ -31,8 +31,8 @@ clean:
 
 deep-clean: clean
 	$(DC) down -v --remove-orphans --rmi all || true
-	docker system prune -a -f || true
-	docker builder prune -a -f || true
+	docker system prune -f || true
+	docker builder prune -f || true
 	docker volume prune -f || true
 	docker network prune -f 
 

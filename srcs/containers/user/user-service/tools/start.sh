@@ -1,8 +1,8 @@
 #!/bin/sh
 set -e
 
-if [ ! -f .env ]; then
-  echo ".env file not found. Please create one from .env.example"
+if [ -z "$DB_HOST" ] || [ -z "$DB_PORT" ]; then
+  echo "Required environment variables not set"
   exit 1
 fi
 
