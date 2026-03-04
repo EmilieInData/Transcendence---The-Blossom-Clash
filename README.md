@@ -91,7 +91,7 @@ He also had more knowledge on Github and its issues, projects and backlog, so he
 
 #### :blossom: Cristina |  *Game developer (front)*
 
-As a computer games enthusiast herself, she was the person who came up with the idea for the game, and later created it in the frontend. The game is completely original, she put together an aesthetic for it and a game experience with different settings, functionalities, components and customization options.
+As a computer games enthusiast herself, she was the person who came up with the idea for the game, and later created it in the frontend. The game is based on a mode of the videogame "osu" but she put together an aesthetic for it and a game experience with different settings, functionalities, components and customization options.
 
 She worked closely with Emilie in the frontend to make sure they were on the same page and everything went according to plan.
 
@@ -248,26 +248,37 @@ Because creating an API was already a necessity, we thought that making it publi
 <br>
 
 ###  MAJOR | Implement a complete web-based game (2p)
-Because we originally started the project with the old subject, we were already going to do a game, the Pong. Eventhough we eventually decided to adhere to the new subject, therefore having the freedom to do other types of websites, we liked the idea of a game, and the opportunity to make something more interesting and modern. Cristina, our game developer, had a lot of inspiration and motivattion to go for a complex and fun game, so we went for it.
+Although the project was initially aligned with the previous subject and based on a classic Pong implementation, we decided to fully embrace the new subject requirements and redesign the concept. Rather than pivoting toward a traditional website, we opted to develop a complete browser-based game with richer mechanics and a more modern architecture.
 
 ##### Implementation
-(To be completed by @Bgoost)
+- Developed a modular game loop using `requestAnimationFrame` for smooth real-time updates.
+- Created a collision detection system with bounding boxes to handle interactions between players, abilities, and environmental objects.
+- Implemented a lane system to manage player positioning and restrict movement to predefined paths.
+- Built ability and Perfect Meter mechanics, allowing dynamic power usage and temporary bonuses.
+- Structured the codebase into separate modules for rendering, input management, and game logic to improve maintainability and scalability.
 
 <br>
 
 ###  MAJOR | Introduce an AI Opponent for games (2p)
-Cristina was not only interested in the game logic, but also in the use of an AI tool to train to act as an oponent to the real player. Nowadays AI is going through a huge rise and many companies and users are interested in the topic, so we decided to add it to the game.
+Cristina was not only interested in the game logic, but also in the use of an AI tool to train to act as an oponent to the real player. Beyond implementing core gameplay mechanics, we extended the system to support an AI-controlled opponent capable of reacting dynamically to game events.
 
 ##### Implementation
-(To be completed by @Bgoost)
+- Developed a decision-making loop for the AI that runs alongside the main game loop.
+- Integrated movement prediction, allowing the AI to anticipate player position and adjust lane choice.
+- Implemented ability usage logic based on game state, meter level, and cooldowns.
+- Added adaptive behavior, so the AI reacts to the player’s current actions and environmental effects (like wind).
+- Leveraged the same input management system used for human players to ensure parity between AI and real players.
 
 <br>
 
 ### MINOR | Game customization options (1p)
-The setup of the game allowed for a lot of customization options that Cristina was able to easily integrate in the game.
+The architecture of the game was designed with configurability in mind. Several gameplay and visual parameters can be modified without altering core logic.
 
 ##### Implementation
-(To be completed by @Bgoost)
+- Created a theme system allowing users to switch between visual styles at runtime.
+- Exposed gameplay parameters such as the number of rounds, the time of the rounds, and ability effects for easier tuning.
+- Linked customization options to state management, ensuring all components reflect changes immediately without requiring a reload.
+- Designed a UI panel to manage settings interactively and update the game in real time.
 
 <br>
 
@@ -641,6 +652,15 @@ All the team enjoyed working on this Vintage Japonese Botanical theme and enrich
 - Perfect Meter & ability mechanics
 - AI opponent logic
 - Wind event implementation
+As the game developer, my main goal was to create a complete, interactive, and fun web-based game. I started by designing the core gameplay mechanics, defining how players interact, how scoring works, and the conditions for victory. This required planning a lane system to structure movement and a collision detection system to handle interactions between players, abilities, and environmental elements.
+
+Once the base gameplay was functional, I implemented the Perfect Meter and ability mechanics, allowing players to perform special actions depending on their in-game performance. This required balancing meter growth and ability effects to make gameplay fair and dynamic.
+
+Next, I focused on the AI opponent, which involved building a decision-making loop capable of predicting player movement, choosing lanes strategically, and using abilities effectively. The AI needed to operate within the same constraints as human players to ensure balanced and competitive gameplay. Integrating the AI required careful testing and iterative adjustments to make it responsive yet beatable.
+
+Finally, I added the wind event system, an environmental mechanic that affects movement and abilities. This introduced variability into each match and required updating both the player and AI movement logic to handle dynamic environmental changes.
+
+The biggest challenges were balancing gameplay for fairness, integrating AI behavior without creating glitches, and ensuring all components (player input, AI, abilities, and environmental effects) worked seamlessly together in real-time.
 
 
 <br>
