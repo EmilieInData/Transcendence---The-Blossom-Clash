@@ -118,7 +118,7 @@ class AIStrategy {
 class EasyStrategy extends AIStrategy {
 	constructor(player, canvasWidth, canvasHeight) {
 		super(player, canvasWidth, canvasHeight);
-		
+
 		// Internal state for artificial delay
 		this.reactionDelay = 0.5; // delay seconds (increased to make it easier)
 		this.reactionTimer = 0;
@@ -710,12 +710,12 @@ export class AI {
 	 */
 	createStrategy(difficulty, player, canvasWidth, canvasHeight) {
 		switch (difficulty.toLowerCase()) {
-			case 'easy':
+			case 'normal':
 				return new EasyStrategy(player, canvasWidth, canvasHeight);
-			case 'medium':
+			case 'hard':
 			case 'normal': // Compatibility with previous difficulty
 				return new MediumStrategy(player, canvasWidth, canvasHeight, this.isTouchDevice);
-			case 'hard':
+			case 'impossible':
 				return new HardStrategy(player, canvasWidth, canvasHeight, this.isTouchDevice);
 			default:
 				return new EasyStrategy(player, canvasWidth, canvasHeight);
